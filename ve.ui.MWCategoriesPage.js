@@ -76,9 +76,9 @@ ve.ui.MWCategoriesPage = function VeUiMWCategoriesPage( name, config ) {
 	} );
 
 	// Initialization
-	//this.categoriesFieldset.addItems( [ this.addCategory ] );
+	this.categoriesFieldset.addItems( [ this.addCategory ] );
 	//this.categoryOptionsFieldset.addItems( [ this.defaultSort ] );
-	//this.$element.append( this.categoriesFieldset.$element, this.categoryOptionsFieldset.$element );
+	this.$element.append( this.categoriesFieldset.$element );
 
 
     /*****************************************************************************/
@@ -96,13 +96,6 @@ ve.ui.MWCategoriesPage = function VeUiMWCategoriesPage( name, config ) {
 
 	this.$element.append(this.resetButton.$element);
 
-
-    // caching a checkbox location for filering usage.
-    this.cachedFirstLabel = {
-    	firstLabel: -1,
-		secondLabel: -1
-	};
-
 	this.fieldset = new OO.ui.FieldsetLayout( { 
 	  label: 'Categories',
 	  icon: 'tag'
@@ -114,75 +107,10 @@ ve.ui.MWCategoriesPage = function VeUiMWCategoriesPage( name, config ) {
 	this.fields = this.createFields();
 	this.fieldset.addItems( this.fields );
 
-    // connect each 1st or 2nd level category with the filtering function.
-    // top level
-    this.nodes[0].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[18].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[35].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[54].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[101].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[120].box.connect(this, {change: "onFirstGroupClick"});
 
-    // second level 1.x
-    this.nodes[1].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[6].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[12].box.connect(this, {change: "onFirstGroupClick"});
-
-    // second level 2.x
-    this.nodes[19].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[23].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[31].box.connect(this, {change: "onFirstGroupClick"});
-
-    // second level 3.x
-    this.nodes[36].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[37].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[38].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[39].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[40].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[41].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[42].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[43].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[44].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[48].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[50].box.connect(this, {change: "onFirstGroupClick"});
-
-    // second level 4.x
-    this.nodes[55].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[58].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[59].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[63].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[66].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[69].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[74].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[75].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[80].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[95].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[100].box.connect(this, {change: "onFirstGroupClick"});
-
-    // second level 5.x
-    this.nodes[102].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[106].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[112].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[115].box.connect(this, {change: "onFirstGroupClick"});
-
-    // second level 6.x
-    this.nodes[121].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[124].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[125].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[126].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[127].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[131].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[132].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[133].box.connect(this, {change: "onFirstGroupClick"});
+	this.cachedBoxes = [];
 
 	this.$element.append(this.fieldset.$element);
-
-
-
-
-    // to save selected categories
-	//var args = [ this.getCategoryItemForInsertion( item ) ];
-	//this.metaList.insertMeta.apply( this.metaList, args );
 
     /*****************************************************************************/
 	/******************************* TMS Code End ********************************/
@@ -200,164 +128,73 @@ OO.inheritClass( ve.ui.MWCategoriesPage, OO.ui.PageLayout );
 /******************************* TMS Code Start ******************************/
 /*****************************************************************************/
 
-ve.ui.MWCategoriesPage.prototype.resetBoxes = function () {
-	console.log("lolol");
-	for(var i=0; i<this.nodes.length; i++) {
-       	this.nodes[i].box.setDisabled(false);
-       	//this.nodes[i].box.setValue(false);
-		this.fields[i].toggle(true);
-	}
-}
-
-ve.ui.MWCategoriesPage.prototype.getSelectedLabel = function () {
-	var labelNumber = {
-		firstLabel: '',
-		secondLabel: ''
-	};
-
-    // first we check if any of the outer labels are selected.  
-    // if so, we then check if one of the child labels are selected.
-    if(this.nodes[0].box.isSelected()) {
-    	labelNumber.firstLabel = this.nodes[0].firstLabel;
-        labelNumber.secondLabel = this.nodes[0].secondLabel;  
-    	for(var i=1; i<18; i++) {
-			if(this.nodes[i].box.isSelected()) {
-  				labelNumber.firstLabel = this.nodes[i].firstLabel;
-    		    labelNumber.secondLabel = this.nodes[i].secondLabel;
+ve.ui.MWCategoriesPage.prototype.onClick = function ( item, beforeMetaItem ) {
+	if(item === true) {
+	    var newItem = this.getNewChecked();
+	    var args = [ this.getCategoryItemForInsertion( newItem ) ];
+		// Insert new metaList item
+		if ( beforeMetaItem ) {
+			args.push( beforeMetaItem.getOffset() );
+			if ( beforeMetaItem.getIndex ) {
+				args.push( beforeMetaItem.getIndex() );
 			}
-    	}
-    } else if(this.nodes[18].box.isSelected()) {
-		labelNumber.firstLabel = this.nodes[18].firstLabel;
-        labelNumber.secondLabel = this.nodes[18].secondLabel;
-        for(var i=19; i<35; i++) {
-			if(this.nodes[i].box.isSelected()) {
-  				labelNumber.firstLabel = this.nodes[i].firstLabel;
-    		    labelNumber.secondLabel = this.nodes[i].secondLabel;
-			}
-    	}
-    } else if(this.nodes[35].box.isSelected()) {
-		labelNumber.firstLabel = this.nodes[35].firstLabel;
-        labelNumber.secondLabel = this.nodes[35].secondLabel;
-        for(var i=36; i<54; i++) {
-			if(this.nodes[i].box.isSelected()) {
-  				labelNumber.firstLabel = this.nodes[i].firstLabel;
-    		    labelNumber.secondLabel = this.nodes[i].secondLabel;
-			}
-    	}
-    } else if(this.nodes[54].box.isSelected()) {
-		labelNumber.firstLabel = this.nodes[54].firstLabel;
-        labelNumber.secondLabel = this.nodes[54].secondLabel;
-        for(var i=55; i<101; i++) {
-			if(this.nodes[i].box.isSelected()) {
-  				labelNumber.firstLabel = this.nodes[i].firstLabel;
-    		    labelNumber.secondLabel = this.nodes[i].secondLabel;
-			}
-    	}
-    } else if(this.nodes[101].box.isSelected()) {
-		labelNumber.firstLabel = this.nodes[101].firstLabel;
-        labelNumber.secondLabel = this.nodes[101].secondLabel;
-        for(var i=102; i<120; i++) {
-			if(this.nodes[i].box.isSelected()) {
-  				labelNumber.firstLabel = this.nodes[i].firstLabel;
-    		    labelNumber.secondLabel = this.nodes[i].secondLabel;
-			}
-    	}
-    } else if(this.nodes[120].box.isSelected()) {
-		labelNumber.firstLabel = this.nodes[120].firstLabel;
-        labelNumber.secondLabel = this.nodes[120].secondLabel;
-        for(var i=121; i<137; i++) {
-			if(this.nodes[i].box.isSelected()) {
-  				labelNumber.firstLabel = this.nodes[i].firstLabel;
-    		    labelNumber.secondLabel = this.nodes[i].secondLabel;
-			}
-    	}
-    }
-
-    this.cachedFirstLabel = labelNumber;
-
-	return labelNumber;
-}
-
-ve.ui.MWCategoriesPage.prototype.getUnSelectedLabel = function() {
-	var labelNumber = this.cachedFirstLabel;
-
-	this.cachedFirstLabel = {
-  		firstLabel: -1,
-		secondLabel: -1
-	};
-
-    // if the unselected label is not at 0 level, then it is a 1st level.
-    // so cache the label that is it's parent.
-	if(labelNumber.secondLabel !== 0 ) {
-		this.cachedFirstLabel = {
-			firstLabel: labelNumber.firstLabel,
-			secondLabel: 0
 		}
-	}
-
-	return labelNumber;
-}
-
-ve.ui.MWCategoriesPage.prototype.onFirstGroupClick = function (value) {
-    // if we have clicked a checkbox
-	if(value) {
-		var selected = this.getSelectedLabel();
-		console.log("selected=", selected);
-
-		for(var i=0; i<this.nodes.length; i++) {
-			// remove all categories below the selected one.
-			if(this.nodes[i].firstLabel < selected.firstLabel) {
-	        	this.nodes[i].box.setDisabled(true);
-	        	this.fields[i].toggle(false);
-	        }
-
-            // remove all categories above the selected row.
-	        if(this.nodes[i].firstLabel > selected.firstLabel) {
-	        	this.nodes[i].box.setDisabled(true);
-	        	this.fields[i].toggle(false);
-	        }
-
-            // remove all second layer categories below the selected one.
-	        if(this.nodes[i].firstLabel === selected.firstLabel &&
-	        	selected.secondLabel !== 0 &&
-	        	this.nodes[i].secondLabel !== 0 &&
-	        	this.nodes[i].secondLabel < selected.secondLabel) {
-	        	this.nodes[i].box.setDisabled(true);
-	            this.fields[i].toggle(false);
-	        }
-
-            // remove all second layer categories above the selected one.
-	        if(this.nodes[i].firstLabel === selected.firstLabel &&
-	        	selected.secondLabel !== 0 &&
-	        	this.nodes[i].secondLabel !== 0 &&
-	        	this.nodes[i].secondLabel > selected.secondLabel) {
-	        	this.nodes[i].box.setDisabled(true);
-	        	this.fields[i].toggle(false);
-	        }
-		}
+        console.log(args);
+		this.metaList.insertMeta.apply( this.metaList, args );
 	} else {
-		// if "value" is false, then we have unselected a check box.  
-		// need to find out which one.
-		var unselected = this.getUnSelectedLabel();
-		console.log("unselected=", unselected);
+        var oldItem = this.getUnChecked();
+        //TODO: remove item when it gets unchecked
+	}
+};
 
-		if(unselected.secondLabel === 0) {
-			// if a first level category is selected, enable all checkboxes.
-			for(var i=0; i<this.nodes.length; i++) {
-    			this.nodes[i].box.setDisabled(false);
-    			this.fields[i].toggle(true);
+// When a checkbox is clicked, we need to search through all nodes to see which one is clicked.
+// Once we find it, add it to the list of cached checkboxes.  
+// Then return the value of the currently checked checkbox.
+ve.ui.MWCategoriesPage.prototype.getNewChecked = function() {
+	var i, j;
+	for(i = 0; i < this.nodes.length; i++) {
+		//console.log("i=", i, " isSelected()=", this.nodes[i].box.isSelected());
+        if(this.nodes[i].box.isSelected() === true) {
+        	if(this.cachedBoxes.length === 0) {
+        		this.cachedBoxes.push(this.nodes[i]);
+            	return this.nodes[i];
         	}
-		} else {
-			for(var i=0; i<this.nodes.length; i++) {
-                if(this.nodes[i].firstLabel === unselected.firstLabel) {
-                	this.nodes[i].box.setDisabled(false);
-    				this.fields[i].toggle(true);
-                }
-			}
-		}
-		
+
+            for(j = 0; j < this.cachedBoxes.length; j++) {
+            	if(this.nodes[i].value === this.cachedBoxes[j].value) {
+            		// we know nodes[i] has already been selected, so we can skip it.
+            	} else {
+            		this.cachedBoxes.push(this.nodes[i]);
+            		return this.nodes[i];
+            	}
+            }
+        }
 	}
 }
+
+ve.ui.MWCategoriesPage.prototype.getUnChecked = function() {
+	var i, j;
+	for(i = 0; i < this.nodes.length; i++) {
+		if(this.nodes[i].box.isSelected() !== true) {
+			for(j = 0; j < this.cachedBoxes.length; j++) {
+				// if the node is not selected, but it is in our cached list, then we know
+				// the current node is the node that has been unselected.
+	            if(this.cachedBoxes[j].value === this.nodes[i].value) {
+	            	this.cachedBoxes.splice(j,1);
+	                return this.nodes[i].value;
+	            }
+			}
+		}
+	}
+}
+
+
+ve.ui.MWCategoriesPage.prototype.resetBoxes = function () {
+	for(var i=0; i<this.nodes.length; i++) {
+       	this.nodes[i].box.setSelected(false);
+	}
+}
+
 
 ve.ui.MWCategoriesPage.prototype.createFields = function() {
     var i;
@@ -1202,6 +1039,7 @@ ve.ui.MWCategoriesPage.prototype.createFields = function() {
 
     for(i=0; i<this.nodes.length; i++) {
     	f.push(new OO.ui.FieldLayout( this.nodes[i].box, { label: this.nodes[i].value, align: 'inline', classes: [this.nodes[i].class] } ));
+    	this.nodes[i].box.connect(this, {change: "onClick"});
     }
 
     return f;
@@ -1441,7 +1279,11 @@ ve.ui.MWCategoriesPage.prototype.teardown = function ( data ) {
 
 };
 
-/***********************************************/
+/**********************
+     KEEPING OLD CODE IN CASE I NEED IT AGAIN
+                           *************************/
+
+
 
 /*
 'Mars Planetary Science'
@@ -1587,6 +1429,236 @@ ve.ui.MWCategoriesPage.prototype.teardown = function ( data ) {
     'Board Games'
     'Computer Games'
 
-    */
 
 
+
+
+
+
+
+// in main 
+
+  // caching a checkbox location for filering usage.
+    this.cachedFirstLabel = {
+    	firstLabel: -1,
+		secondLabel: -1
+	};
+
+
+// connect each 1st or 2nd level category with the filtering function.
+    // top level
+    this.nodes[0].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[18].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[35].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[54].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[101].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[120].box.connect(this, {change: "onFirstGroupClick"});
+
+    // second level 1.x
+    this.nodes[1].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[6].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[12].box.connect(this, {change: "onFirstGroupClick"});
+
+    // second level 2.x
+    this.nodes[19].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[23].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[31].box.connect(this, {change: "onFirstGroupClick"});
+
+    // second level 3.x
+    this.nodes[36].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[37].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[38].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[39].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[40].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[41].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[42].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[43].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[44].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[48].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[50].box.connect(this, {change: "onFirstGroupClick"});
+
+    // second level 4.x
+    this.nodes[55].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[58].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[59].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[63].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[66].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[69].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[74].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[75].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[80].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[95].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[100].box.connect(this, {change: "onFirstGroupClick"});
+
+    // second level 5.x
+    this.nodes[102].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[106].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[112].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[115].box.connect(this, {change: "onFirstGroupClick"});
+
+    // second level 6.x
+    this.nodes[121].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[124].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[125].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[126].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[127].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[131].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[132].box.connect(this, {change: "onFirstGroupClick"});
+    this.nodes[133].box.connect(this, {change: "onFirstGroupClick"});
+
+
+ve.ui.MWCategoriesPage.prototype.getSelectedLabel = function () {
+	var labelNumber = {
+		firstLabel: '',
+		secondLabel: ''
+	};
+
+    // first we check if any of the outer labels are selected.  
+    // if so, we then check if one of the child labels are selected.
+    if(this.nodes[0].box.isSelected()) {
+    	labelNumber.firstLabel = this.nodes[0].firstLabel;
+        labelNumber.secondLabel = this.nodes[0].secondLabel;  
+    	for(var i=1; i<18; i++) {
+			if(this.nodes[i].box.isSelected()) {
+  				labelNumber.firstLabel = this.nodes[i].firstLabel;
+    		    labelNumber.secondLabel = this.nodes[i].secondLabel;
+			}
+    	}
+    } else if(this.nodes[18].box.isSelected()) {
+		labelNumber.firstLabel = this.nodes[18].firstLabel;
+        labelNumber.secondLabel = this.nodes[18].secondLabel;
+        for(var i=19; i<35; i++) {
+			if(this.nodes[i].box.isSelected()) {
+  				labelNumber.firstLabel = this.nodes[i].firstLabel;
+    		    labelNumber.secondLabel = this.nodes[i].secondLabel;
+			}
+    	}
+    } else if(this.nodes[35].box.isSelected()) {
+		labelNumber.firstLabel = this.nodes[35].firstLabel;
+        labelNumber.secondLabel = this.nodes[35].secondLabel;
+        for(var i=36; i<54; i++) {
+			if(this.nodes[i].box.isSelected()) {
+  				labelNumber.firstLabel = this.nodes[i].firstLabel;
+    		    labelNumber.secondLabel = this.nodes[i].secondLabel;
+			}
+    	}
+    } else if(this.nodes[54].box.isSelected()) {
+		labelNumber.firstLabel = this.nodes[54].firstLabel;
+        labelNumber.secondLabel = this.nodes[54].secondLabel;
+        for(var i=55; i<101; i++) {
+			if(this.nodes[i].box.isSelected()) {
+  				labelNumber.firstLabel = this.nodes[i].firstLabel;
+    		    labelNumber.secondLabel = this.nodes[i].secondLabel;
+			}
+    	}
+    } else if(this.nodes[101].box.isSelected()) {
+		labelNumber.firstLabel = this.nodes[101].firstLabel;
+        labelNumber.secondLabel = this.nodes[101].secondLabel;
+        for(var i=102; i<120; i++) {
+			if(this.nodes[i].box.isSelected()) {
+  				labelNumber.firstLabel = this.nodes[i].firstLabel;
+    		    labelNumber.secondLabel = this.nodes[i].secondLabel;
+			}
+    	}
+    } else if(this.nodes[120].box.isSelected()) {
+		labelNumber.firstLabel = this.nodes[120].firstLabel;
+        labelNumber.secondLabel = this.nodes[120].secondLabel;
+        for(var i=121; i<137; i++) {
+			if(this.nodes[i].box.isSelected()) {
+  				labelNumber.firstLabel = this.nodes[i].firstLabel;
+    		    labelNumber.secondLabel = this.nodes[i].secondLabel;
+			}
+    	}
+    }
+
+    this.cachedFirstLabel = labelNumber;
+
+	return labelNumber;
+}
+
+ve.ui.MWCategoriesPage.prototype.getUnSelectedLabel = function() {
+	var labelNumber = this.cachedFirstLabel;
+
+	this.cachedFirstLabel = {
+  		firstLabel: -1,
+		secondLabel: -1
+	};
+
+    // if the unselected label is not at 0 level, then it is a 1st level.
+    // so cache the label that is it's parent.
+	if(labelNumber.secondLabel !== 0 ) {
+		this.cachedFirstLabel = {
+			firstLabel: labelNumber.firstLabel,
+			secondLabel: 0
+		}
+	}
+
+	return labelNumber;
+}
+
+ve.ui.MWCategoriesPage.prototype.onFirstGroupClick = function (value) {
+    // if we have clicked a checkbox
+	if(value) {
+		var selected = this.getSelectedLabel();
+		console.log("selected=", selected);
+
+		for(var i=0; i<this.nodes.length; i++) {
+			// remove all categories below the selected one.
+			if(this.nodes[i].firstLabel < selected.firstLabel) {
+	        	this.nodes[i].box.setDisabled(true);
+	        	this.fields[i].toggle(false);
+	        }
+
+            // remove all categories above the selected row.
+	        if(this.nodes[i].firstLabel > selected.firstLabel) {
+	        	this.nodes[i].box.setDisabled(true);
+	        	this.fields[i].toggle(false);
+	        }
+
+            // remove all second layer categories below the selected one.
+	        if(this.nodes[i].firstLabel === selected.firstLabel &&
+	        	selected.secondLabel !== 0 &&
+	        	this.nodes[i].secondLabel !== 0 &&
+	        	this.nodes[i].secondLabel < selected.secondLabel) {
+	        	this.nodes[i].box.setDisabled(true);
+	            this.fields[i].toggle(false);
+	        }
+
+            // remove all second layer categories above the selected one.
+	        if(this.nodes[i].firstLabel === selected.firstLabel &&
+	        	selected.secondLabel !== 0 &&
+	        	this.nodes[i].secondLabel !== 0 &&
+	        	this.nodes[i].secondLabel > selected.secondLabel) {
+	        	this.nodes[i].box.setDisabled(true);
+	        	this.fields[i].toggle(false);
+	        }
+		}
+	} else {
+		// if "value" is false, then we have unselected a check box.  
+		// need to find out which one.
+		var unselected = this.getUnSelectedLabel();
+		console.log("unselected=", unselected);
+
+		if(unselected.secondLabel === 0) {
+			// if a first level category is selected, enable all checkboxes.
+			for(var i=0; i<this.nodes.length; i++) {
+    			this.nodes[i].box.setDisabled(false);
+    			this.fields[i].toggle(true);
+        	}
+		} else {
+			for(var i=0; i<this.nodes.length; i++) {
+                if(this.nodes[i].firstLabel === unselected.firstLabel) {
+                	this.nodes[i].box.setDisabled(false);
+    				this.fields[i].toggle(true);
+                }
+			}
+		}
+		
+	}
+}
+
+
+
+
+
+*/
