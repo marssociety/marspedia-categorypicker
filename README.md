@@ -9,3 +9,6 @@ mediawiki-1.31.0/extensions/VisualEditor/modules/ve-mw/ui/pages/ve.ui.MWCategori
 
 ve.ui.MWCategoryWidget.css ->
 mediawiki-1.31.0/extensions/VisualEditor/modules/ve-mw/ui/styles/widgets/ve.ui.MWCategoryWidget.css
+
+ve.ui.MWCategoryWidget.js ->
+mediawiki-1.31.0/extensions/VisualEditor/modules/ve-mw/ui/widgets/ve.ui.MWCategoryWidget.js
