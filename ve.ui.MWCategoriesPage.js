@@ -46,7 +46,7 @@ ve.ui.MWCategoriesPage = function VeUiMWCategoriesPage( name, config ) {
 		{
 			$overlay: config.$overlay,
 			align: 'top',
-			label: ve.msg( 'visualeditor-dialog-meta-categories-addcategory-label' )
+			//label: ve.msg( 'visualeditor-dialog-meta-categories-addcategory-label' )
 		}
 	);
 
@@ -85,7 +85,7 @@ ve.ui.MWCategoriesPage = function VeUiMWCategoriesPage( name, config ) {
 	/******************************* TMS Code Start ******************************/
 	/*****************************************************************************/
 
-	this.resetButton = new OO.ui.ButtonWidget( {
+/*	this.resetButton = new OO.ui.ButtonWidget( {
 		framed: false,
 		label: 'Reset',
 		icon: 'eye',
@@ -95,10 +95,10 @@ ve.ui.MWCategoriesPage = function VeUiMWCategoriesPage( name, config ) {
 	this.resetButton.connect(this, {click: "resetBoxes"});
 
 	this.$element.append(this.resetButton.$element);
-
+*/
 	this.fieldset = new OO.ui.FieldsetLayout( { 
-	  label: 'Categories',
-	  icon: 'tag'
+	  /*label: 'Categories',
+	  icon: 'tag'*/
 	} ); 
 
     // nodes is an array of all the field sets and checkboxes into one.
@@ -131,19 +131,10 @@ OO.inheritClass( ve.ui.MWCategoriesPage, OO.ui.PageLayout );
 ve.ui.MWCategoriesPage.prototype.onClick = function ( item, beforeMetaItem ) {
 	if(item === true) {
 	    var newItem = this.getNewChecked();
-	    var args = [ this.getCategoryItemForInsertion( newItem ) ];
-		// Insert new metaList item
-		if ( beforeMetaItem ) {
-			args.push( beforeMetaItem.getOffset() );
-			if ( beforeMetaItem.getIndex ) {
-				args.push( beforeMetaItem.getIndex() );
-			}
-		}
-        console.log(args);
-		this.metaList.insertMeta.apply( this.metaList, args );
+	    this.onNewCategory(newItem);
 	} else {
         var oldItem = this.getUnChecked();
-        //TODO: remove item when it gets unchecked
+	    this.categoryWidget.tmsRemoveItem(oldItem);
 	}
 };
 
@@ -152,8 +143,10 @@ ve.ui.MWCategoriesPage.prototype.onClick = function ( item, beforeMetaItem ) {
 // Then return the value of the currently checked checkbox.
 ve.ui.MWCategoriesPage.prototype.getNewChecked = function() {
 	var i, j;
+	var isFound = false;
 	for(i = 0; i < this.nodes.length; i++) {
-		//console.log("i=", i, " isSelected()=", this.nodes[i].box.isSelected());
+		isFound = false;
+
         if(this.nodes[i].box.isSelected() === true) {
         	if(this.cachedBoxes.length === 0) {
         		this.cachedBoxes.push(this.nodes[i]);
@@ -162,11 +155,15 @@ ve.ui.MWCategoriesPage.prototype.getNewChecked = function() {
 
             for(j = 0; j < this.cachedBoxes.length; j++) {
             	if(this.nodes[i].value === this.cachedBoxes[j].value) {
-            		// we know nodes[i] has already been selected, so we can skip it.
-            	} else {
-            		this.cachedBoxes.push(this.nodes[i]);
-            		return this.nodes[i];
-            	}
+            		isFound = true;
+            	} 
+            }
+
+            // if we have a selected box and searched all of the cache without finding a match,
+            // then the selected box is the newly selected box.  Save it to cache and then return.
+            if(!isFound) {
+            	this.cachedBoxes.push(this.nodes[i]);
+            	return this.nodes[i];
             }
         }
 	}
@@ -181,7 +178,7 @@ ve.ui.MWCategoriesPage.prototype.getUnChecked = function() {
 				// the current node is the node that has been unselected.
 	            if(this.cachedBoxes[j].value === this.nodes[i].value) {
 	            	this.cachedBoxes.splice(j,1);
-	                return this.nodes[i].value;
+	                return this.nodes[i];
 	            }
 			}
 		}
@@ -1112,7 +1109,6 @@ ve.ui.MWCategoriesPage.prototype.onUpdateSortKey = function ( item ) {
  */
 ve.ui.MWCategoriesPage.prototype.onMetaListInsert = function ( metaItem ) {
 	var index;
-
 	// Responsible for adding UI components
 	if ( metaItem.element.type === 'mwCategory' ) {
 		index = this.metaList.getItemsInGroup( 'mwCategory' ).indexOf( metaItem );
@@ -1130,7 +1126,7 @@ ve.ui.MWCategoriesPage.prototype.onMetaListInsert = function ( metaItem ) {
  */
 ve.ui.MWCategoriesPage.prototype.onMetaListRemove = function ( metaItem ) {
 	var item;
-
+	console.log("onMetaListRemove ", metaItem);
 	if ( metaItem.element.type === 'mwCategory' ) {
 		item = this.categoryWidget.categories[ this.getCategoryItemFromMetaListItem( metaItem ).value ];
 		this.categoryWidget.removeItems( [ item ] );
