@@ -1,14 +1,11 @@
-The following are instructions on where to place what filing for the Visual Editors tool.
+The following files have beem modifed:
+marspedia.org/extensions/VisualEditor/extension.json
+marspedia.org/extensions/VisualEditor/modules/ve-mw/ui/pages/ve.ui.MWCategoriesPage.js
+marspedia.org/extensions/VisualEditor/modules/ve-mw/ui/widgets/ve.ui.MWCategoryPopupWidget.js
+marspedia.org/extensions/VisualEditor/modules/ve-mw/ui/widgets/ve.ui.MWCategoryWidget.js
+marspedia.org/extensions/VisualEditor/modules/ve-mw/ui/widgets/ve.ui.MWCategoryInputWidget.js
 
-file -> destination path in medawiki
+The following file has been added:
+marspedia.org/extensions/VisualEditor/modules/ve-mw/ui/styles/widgets/ve.ui.MWCategoriesPage.css
 
----
-
-ve.uiMWCategoriesPage.js -> 
-mediawiki-1.31.0/extensions/VisualEditor/modules/ve-mw/ui/pages/ve.ui.MWCategoriesPage.js
-
-ve.ui.MWCategoryWidget.css ->
-mediawiki-1.31.0/extensions/VisualEditor/modules/ve-mw/ui/styles/widgets/ve.ui.MWCategoryWidget.css
-
-ve.ui.MWCategoryWidget.js ->
-mediawiki-1.31.0/extensions/VisualEditor/modules/ve-mw/ui/widgets/ve.ui.MWCategoryWidget.js
+Simply replace the above files in the wikimdeia code base and restart the server.

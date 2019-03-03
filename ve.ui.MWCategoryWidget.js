@@ -38,12 +38,12 @@ ve.ui.MWCategoryWidget = function VeUiMWCategoryWidget( config ) {
 	// Title cache - will contain entries even if title is already normalized
 	this.normalizedTitles = {};
 	this.popup = new ve.ui.MWCategoryPopupWidget();
-	this.input = new ve.ui.MWCategoryInputWidget();// this, { $overlay: config.$overlay } );
+	// @TMS - CommentedOut this.input = new ve.ui.MWCategoryInputWidget( this, { $overlay: config.$overlay } );
 	this.forceCapitalization = mw.config.get( 'wgCaseSensitiveNamespaces' ).indexOf( categoryNamespace ) === -1;
 	this.categoryPrefix = mw.config.get( 'wgFormattedNamespaces' )[ categoryNamespace ] + ':';
 
 	// Events
-	this.input.connect( this, { choose: 'onInputChoose' } );
+	// @TMS - CommentedOut this.input.connect( this, { choose: 'onInputChoose' } );
 	this.popup.connect( this, {
 		removeCategory: 'onRemoveCategory',
 		updateSortkey: 'onUpdateSortkey'
@@ -55,7 +55,9 @@ ve.ui.MWCategoryWidget = function VeUiMWCategoryWidget( config ) {
 	// Initialization
 	this.$element.addClass( 've-ui-mwCategoryWidget' )
 		.append(
-			this.$group.addClass( 've-ui-mwCategoryWidget-items' ),
+			this.$group.addClass( 've-ui-mwCategoryWidget-items' ).append(
+				// @TMS - CommentedOut this.input.$element
+			),
 			this.popup.$element,
 			$( '<div>' ).css( 'clear', 'both' )
 		);
@@ -148,7 +150,7 @@ ve.ui.MWCategoryWidget.prototype.getCategoryItemFromValue = function ( value ) {
  * Focus the widget
  */
 ve.ui.MWCategoryWidget.prototype.focus = function () {
-	this.input.$input[ 0 ].focus();
+	// @TMS - CommentedOut this.input.$input[ 0 ].focus();
 };
 
 /**
@@ -180,7 +182,6 @@ ve.ui.MWCategoryWidget.prototype.reorder = function ( item, newIndex ) {
  * @param {string} name Removed category name
  */
 ve.ui.MWCategoryWidget.prototype.onRemoveCategory = function ( name ) {
-	console.log("removing=", name);
 	this.categories[ name ].metaItem.remove();
 	delete this.categories[ name ];
 };
@@ -247,7 +248,6 @@ ve.ui.MWCategoryWidget.prototype.getCategories = function () {
  * @return {jQuery.Promise}
  */
 ve.ui.MWCategoryWidget.prototype.queryCategoryStatus = function ( categoryNames ) {
-	console.log("in queryCategoryStatus", categoryNames);
 	var widget = this,
 		promises = [], index = 0, batchSize = 50,
 		categoryNamesToQuery = [];
@@ -274,7 +274,7 @@ ve.ui.MWCategoryWidget.prototype.queryCategoryStatus = function ( categoryNames 
 
 	// Batch this up into groups of 50
 	while ( index < categoryNamesToQuery.length ) {
-		promises.push( new mw.Api().get( {
+		promises.push( ve.init.target.getContentApi().get( {
 			action: 'query',
 			prop: 'pageprops',
 			titles: categoryNamesToQuery.slice( index, index + batchSize ),
@@ -367,7 +367,7 @@ ve.ui.MWCategoryWidget.prototype.addItems = function ( items, index ) {
 			// Index item
 			widget.categories[ itemTitle.getMainText() ] = categoryItem;
 			// Copy sortKey from old item when "moving"
-			existingCategoryItems = $.grep( widget.items, checkValueMatches );
+			existingCategoryItems = widget.items.filter( checkValueMatches );
 			if ( existingCategoryItems.length ) {
 				// There should only be one element in existingCategoryItems
 				categoryItem.sortKey = existingCategoryItems[ 0 ].sortKey;
@@ -380,12 +380,14 @@ ve.ui.MWCategoryWidget.prototype.addItems = function ( items, index ) {
 		OO.ui.mixin.DraggableGroupElement.prototype.addItems.call( widget, categoryItems, index );
 
 		// Ensure the input remains the last item in the list, and preserve focus
+		/*  @TMS - CommentedOut 
 		hadFocus = widget.getElementDocument().activeElement === widget.input.$input[ 0 ];
 		widget.$group.append( widget.input.$element );
 		if ( hadFocus ) {
 			widget.input.$input[ 0 ].focus();
 		}
 		widget.fitInput();
+		*/
 	} );
 };
 
@@ -415,6 +417,7 @@ ve.ui.MWCategoryWidget.prototype.removeItems = function ( items ) {
  * @method
  */
 ve.ui.MWCategoryWidget.prototype.fitInput = function () {
+	/*  @TMS - CommentedOut 
 	var availableSpace, inputWidth, $lastItem,
 		$input = this.input.$element;
 
@@ -434,25 +437,5 @@ ve.ui.MWCategoryWidget.prototype.fitInput = function () {
 	if ( availableSpace > inputWidth ) {
 		$input.css( 'width', availableSpace );
 	}
+	*/
 };
-
-
-
-/*****************************************************************************/
-/******************************* TMS Code Start ******************************/
-/*****************************************************************************/
-
-ve.ui.MWCategoryWidget.prototype.tmsRemoveItem = function (item) {
-    this.categories[ item.value ].metaItem.remove();
-    delete this.categories[ item.value ];
-	OO.ui.mixin.DraggableGroupElement.prototype.removeItems.call( this, [item] );
-	this.fitInput();
-}
-
-ve.ui.MWCategoryWidget.prototype.tmsGetCurrentItems = function() {
-	return this.categories;
-}
-
-/*****************************************************************************/
-/******************************* TMS Code End ********************************/
-/*****************************************************************************/

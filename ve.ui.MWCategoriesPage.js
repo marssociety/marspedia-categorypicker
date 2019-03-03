@@ -33,8 +33,8 @@ ve.ui.MWCategoriesPage = function VeUiMWCategoriesPage( name, config ) {
 	} );
 
 	this.categoryOptionsFieldset = new OO.ui.FieldsetLayout( {
-		label: ve.msg( 'visualeditor-dialog-meta-categories-options' ),
-		icon: 'advanced'
+		label: ve.msg( 'visualeditor-dialog-meta-categories-options' )//,
+		// @TMS - CommentedOut icon: 'settings'
 	} );
 
 	this.categoryWidget = new ve.ui.MWCategoryWidget( {
@@ -46,9 +46,693 @@ ve.ui.MWCategoriesPage = function VeUiMWCategoriesPage( name, config ) {
 		{
 			$overlay: config.$overlay,
 			align: 'top',
-			//label: ve.msg( 'visualeditor-dialog-meta-categories-addcategory-label' )
+			label: 'Add one or more categories from this list to this page - one at a time'
 		}
 	);
+
+	// @TMS - Start
+
+	this.dropDownWidget = new OO.ui.DropdownWidget( {
+	    label: 'Select a Category',
+	    menu: {
+	        items: [
+	            new OO.ui.MenuOptionWidget( {
+	                data: 'Mars Planetary Science',  // level 1
+	                label: 'Mars Planetary Science'
+	            } ),
+	            new OO.ui.MenuOptionWidget( {
+	                data: 'Areography',
+	                label: 'Areography',
+	                classes: ['category-two']
+	            } ),
+	            new OO.ui.MenuOptionWidget( {
+	                data: 'Atmospheric Sciences',
+	                label: 'Atmospheric Sciences',
+	                classes: ['category-three']
+	            } ),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Gravimetry‎',
+	            	label: 'Gravimetry‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Mars Atlas',
+	            	label: 'Mars Atlas',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Surface Spectroscopy',
+	            	label: 'Surface Spectroscopy',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Topgraphy',
+	            	label: 'Topgraphy',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Areology',
+	            	label: 'Areology',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Geologic Processes',
+	            	label: 'Geologic Processes',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Hydrology',
+	            	label: 'Hydrology',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Mars Meteorites',
+	            	label: 'Mars Meteorites',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Mineralogy',
+	            	label: 'Mineralogy',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Astronomy',
+	            	label: 'Astronomy',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Mars-Crossing Asteroids',
+	            	label: 'Mars-Crossing Asteroids',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Moons (Natural Satellites)',
+	            	label: 'Moons (Natural Satellites)',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Orbit',
+	            	label: 'Orbit',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Time Measures',
+	            	label: 'Time Measures',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Mars Spacecraft/Robotic Missions‎ ',  // level 1
+	            	label: 'Mars Spacecraft/Robotic Missions‎ '
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Exploration Missions',
+	            	label: 'Exploration Missions',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Lander Missions',
+	            	label: 'Lander Missions',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Robotic Exploration',
+	            	label: 'Robotic Exploration',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Mission Objectives',
+	            	label: 'Mission Objectives',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Resource Mapping',
+	            	label: 'Resource Mappping',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Search for Life',
+	            	label: 'Search for Life',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Spaceflight Science',
+	            	label: 'Spaceflight Science',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Mission Planning',
+	            	label: 'Mission Planning',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Communication',
+	            	label: 'Communication',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Emerging Technologies',
+	            	label: 'Emerging Technologies',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Exploration Concepts',
+	            	label: 'Exploration Concepts',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Instruments',
+	            	label: 'Instruments',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Orbital Mechanics',
+	            	label: 'Orbital Mechanics',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Power Systems',
+	            	label: 'Power Systems',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Propulsion',
+	            	label: 'Propulsion',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Mars Human Exploration',  // level 1
+	            	label: 'Mars Human Exploration'
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Analog Stations',
+	            	label: 'Analog Stations',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'FMARS',
+	            	label: 'FMARS',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'HI_SEAS',
+	            	label: 'HI_SEAS',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'MDRS',
+	            	label: 'MDRS',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Exploration Transport System',
+	            	label: 'Exploration Transport System',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Ascent Vehicles',
+	            	label: 'Ascent Vehicles',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Descent Vehicles',
+	            	label: 'Descent Vehicles',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Interplanetary Vehicles',
+	            	label: 'Interplanetary Vehicles',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Funding',
+	            	label: 'Funding',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Human Factors',
+	            	label: 'Human Factors',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Human Mission Architecture',
+	            	label: 'Human Mission Architecture',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'In-situ Resource Utilization',
+	            	label: 'In-situ Resource Utilization',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Medicine',
+	            	label: 'Medicine',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Moon Stations',
+	            	label: 'Moon Stations',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Space Stations',
+	            	label: 'Space Stations',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Surface Vehicular Activities',
+	            	label: 'Surface Vehicular Activities',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'EVA Suits',
+	            	label: 'EVA Suits',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Training',
+	            	label: 'Training',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Mars Human Settlement',  // level 1
+	            	label: 'Mars Human Settlement'
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Agriculture‎',
+	            	label: 'Agriculture‎',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Biospherics‎',
+	            	label: 'Biospherics‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Food Crops‎',
+	            	label: 'Food Crops‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Genetic Engineering‎',
+	            	label: 'Genetic Engineering‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Growing Methods',
+	            	label: 'Growing Methods',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Livestock & Aquaculture‎',
+	            	label: 'Livestock & Aquaculture‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Non-Food Crops‎',
+	            	label: 'Non-Food Crops‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Communications‎',
+	            	label: 'Communications‎',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Energy‎',
+	            	label: 'Energy‎',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Distribution‎',
+	            	label: 'Distribution‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Fuels‎',
+	            	label: 'Fuels‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Sources‎',
+	            	label: 'Sources‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Storage‎',
+	            	label: 'Storage‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Health and Safety‎',
+	            	label: 'Health and Safety‎',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Diet and Nutrition',
+	            	label: 'Diet and Nutrition',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Gravity and Fitness‎',
+	            	label: 'Gravity and Fitness‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Psychology‎',
+	            	label: 'Psychology‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Radiation Protection‎',
+	            	label: 'Radiation Protection‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Life Support Systems‎',
+	            	label: 'Life Support Systems‎',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Air‎',
+	            	label: 'Air‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'HVAC‎',
+	            	label: 'HVAC‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Water‎',
+	            	label: 'Water‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Mission Support‎',
+	            	label: 'Mission Support‎',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Resources and Manufacture‎',
+	            	label: 'Resources and Manufacture‎',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Fabrication and Repair‎',
+	            	label: 'Fabrication and Repair‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Manufacture‎',
+	            	label: 'Manufacture‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Materials‎',
+	            	label: 'Materials‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Mining and Refining',
+	            	label: 'Mining and Refining',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Prospecting‎',
+	            	label: 'Prospecting‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Synthesis‎',
+	            	label: 'Synthesis‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Waste Management and Recycling',
+	            	label: 'Waste Management and Recycling',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Settlement Plans‎',
+	            	label: 'Settlement Plans‎',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Construction, Assembly, Maintenance‎',
+	            	label: 'Construction, Assembly, Maintenance‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Housing and Infrastructure Concepts‎',
+	            	label: 'Housing and Infrastructure Concepts‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Settlement Transport Systems‎',
+	            	label: 'Settlement Transport Systems‎',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Ready for Mars‎',
+	            	label: 'Ready for Mars‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'SpaceX Transport‎',
+	            	label: 'SpaceX Transport‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Society‎',
+	            	label: 'Society‎',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Commerce and Economics‎',
+	            	label: 'Commerce and Economics‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Government‎',
+	            	label: 'Government‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Law',
+	            	label: 'Law',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Philosophy and Ethics‎',
+	            	label: 'Philosophy and Ethics‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Surface Transportation‎',
+	            	label: 'Surface Transportation ',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Surface Transportation Networks‎',
+	            	label: 'Surface Transportation Networks‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Surface Vehicles‎',
+	            	label: 'Surface Vehicles‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Terraforming‎',
+	            	label: 'Terraforming‎',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Mars Outreach‎',  // level 1
+	            	label: 'Mars Outreach‎'
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Education‎',
+	            	label: 'Education‎',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Online Courses‎',
+	            	label: 'Online Courses‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'University Degree Programs‎',
+	            	label: 'University Degree Programs‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Information Media Sources',
+	            	label: 'Information Media Sources',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Mars Society Videos',
+	            	label: 'Mars Society Videos',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'MarsPapers‎',
+	            	label: 'MarsPapers‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Wikipedia‎',
+	            	label: 'Wikipedia‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Outreach Concepts‎',
+	            	label: 'Outreach Concepts‎',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Competitions‎',
+	            	label: 'Competitions‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Events‎',
+	            	label: 'Events‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Political Action‎',
+	            	label: 'Political Action‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'People and Organizations‎',
+	            	label: 'People and Organizations‎',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Explore Mars‎',
+	            	label: 'Explore Mars‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Mars Foundation‎',
+	            	label: 'Mars Foundation‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Mars One‎',
+	            	label: 'Mars One‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Mars Society‎',
+	            	label: 'Mars Society‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Mars Society Conventions‎ ',
+	            	label: 'Mars Society Conventions‎ ',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'SpaceX‎',
+	            	label: 'SpaceX‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Mars Arts and Literature‎',  // level 1
+	            	label: 'Mars Arts and Literature‎'
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Art',
+	            	label: 'Art',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Books',
+	            	label: 'Books',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Non-Fiction Literature',
+	            	label: 'Non-Fiction Literature',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Science Fiction Literature',
+	            	label: 'Science Fiction Literature',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Essays‎',
+	            	label: 'Essays‎',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Games‎',
+	            	label: 'Games‎',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Board Games‎',
+	            	label: 'Board Games‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Computer Games‎',
+	            	label: 'Computer Games‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'History‎',
+	            	label: 'History‎',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Movies‎',
+	            	label: 'Movies‎',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Documentaries‎',
+	            	label: 'Documentaries‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Science Fiction Movies‎',
+	            	label: 'Science Fiction Movies‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'TV Series‎',
+	            	label: 'TV Series‎',
+	            	classes: ['category-three']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Music‎',
+	            	label: 'Music‎',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Photography‎',
+	            	label: 'Photography‎',
+	            	classes: ['category-two']
+	            }),
+	            new OO.ui.MenuOptionWidget( {
+	            	data: 'Plays‎',
+	            	label: 'Plays‎',
+	            	classes: ['category-two']
+	            })
+	        ]
+	    }
+	} );
+
+	this.dropDownWidget.getMenu().connect(this, {
+		choose: 'TMSonNewCategory'
+	})
+	// @TMS - End
 
 	this.defaultSortInput = new OO.ui.TextInputWidget( {
 		placeholder: this.fallbackDefaultSortKey
@@ -77,45 +761,11 @@ ve.ui.MWCategoriesPage = function VeUiMWCategoriesPage( name, config ) {
 
 	// Initialization
 	this.categoriesFieldset.addItems( [ this.addCategory ] );
-	//this.categoryOptionsFieldset.addItems( [ this.defaultSort ] );
-	this.$element.append( this.categoriesFieldset.$element );
-
-
-    /*****************************************************************************/
-	/******************************* TMS Code Start ******************************/
-	/*****************************************************************************/
-
-/*	this.resetButton = new OO.ui.ButtonWidget( {
-		framed: false,
-		label: 'Reset',
-		icon: 'eye',
-		classes: ['rightSide']
-	} );
-
-	this.resetButton.connect(this, {click: "resetBoxes"});
-
-	this.$element.append(this.resetButton.$element);
-*/
-	this.fieldset = new OO.ui.FieldsetLayout( { 
-	  /*label: 'Categories',
-	  icon: 'tag'*/
-	} ); 
-
-    // nodes is an array of all the field sets and checkboxes into one.
-	this.nodes;
-
-	this.fields = this.createFields();
-	this.fieldset.addItems( this.fields );
-
-
-	this.cachedBoxes = [];
-
-	this.$element.append(this.fieldset.$element);
-
-    /*****************************************************************************/
-	/******************************* TMS Code End ********************************/
-	/*****************************************************************************/
-
+// @TMS - CommentedOut	this.categoryOptionsFieldset.addItems( [ this.defaultSort ] );
+	this.$element.append( this.categoriesFieldset.$element); // @TMS - CommentedOut, this.categoryOptionsFieldset.$element );
+	// @TMS - Start
+	this.$element.append( this.dropDownWidget.$element);
+	// @TMS - End
 };
 
 /* Inheritance */
@@ -124,929 +774,32 @@ OO.inheritClass( ve.ui.MWCategoriesPage, OO.ui.PageLayout );
 
 /* Methods */
 
-/*****************************************************************************/
-/******************************* TMS Code Start ******************************/
-/*****************************************************************************/
+// @TMS - Start
+// happens before "apply changes" button. a cat checkbox should do whatever this funciton does.
+ve.ui.MWCategoriesPage.prototype.TMSonNewCategory = function ( item, beforeMetaItem ) {
+	
+    // make an array of a new data cat object for insertion
+	var args = [ this.getCategoryItemForInsertion( item ) ];
+	// attaching required attribtues for the new category
+	item.name = "Category:" + item.data;
+	item.value = item.data;
+	item.attributes = {};
+	item.attributes.category = "Category:" + item.data;
 
-ve.ui.MWCategoriesPage.prototype.onClick = function ( item, beforeMetaItem ) {
-	if(item === true) {
-	    var newItem = this.getNewChecked();
-	    this.onNewCategory(newItem);
-	} else {
-        var oldItem = this.getUnChecked();
-	    this.categoryWidget.tmsRemoveItem(oldItem);
-	}
-};
+	args[0].attributes = {};
+	args[0].attributes.category = "Category:" + item.data;
 
-// When a checkbox is clicked, we need to search through all nodes to see which one is clicked.
-// Once we find it, add it to the list of cached checkboxes.  
-// Then return the value of the currently checked checkbox.
-ve.ui.MWCategoriesPage.prototype.getNewChecked = function() {
-	var i, j;
-	var isFound = false;
-	for(i = 0; i < this.nodes.length; i++) {
-		isFound = false;
-
-        if(this.nodes[i].box.isSelected() === true) {
-        	if(this.cachedBoxes.length === 0) {
-        		this.cachedBoxes.push(this.nodes[i]);
-            	return this.nodes[i];
-        	}
-
-            for(j = 0; j < this.cachedBoxes.length; j++) {
-            	if(this.nodes[i].value === this.cachedBoxes[j].value) {
-            		isFound = true;
-            	} 
-            }
-
-            // if we have a selected box and searched all of the cache without finding a match,
-            // then the selected box is the newly selected box.  Save it to cache and then return.
-            if(!isFound) {
-            	this.cachedBoxes.push(this.nodes[i]);
-            	return this.nodes[i];
-            }
-        }
-	}
-}
-
-ve.ui.MWCategoriesPage.prototype.getUnChecked = function() {
-	var i, j;
-	for(i = 0; i < this.nodes.length; i++) {
-		if(this.nodes[i].box.isSelected() !== true) {
-			for(j = 0; j < this.cachedBoxes.length; j++) {
-				// if the node is not selected, but it is in our cached list, then we know
-				// the current node is the node that has been unselected.
-	            if(this.cachedBoxes[j].value === this.nodes[i].value) {
-	            	this.cachedBoxes.splice(j,1);
-	                return this.nodes[i];
-	            }
-			}
+	// Insert new metaList item
+	if ( beforeMetaItem ) {
+		args.push( beforeMetaItem.getOffset() );
+		if ( beforeMetaItem.getIndex ) {
+			args.push( beforeMetaItem.getIndex() );
 		}
 	}
-}
 
-
-ve.ui.MWCategoriesPage.prototype.resetBoxes = function () {
-	for(var i=0; i<this.nodes.length; i++) {
-       	this.nodes[i].box.setSelected(false);
-	}
-}
-
-
-ve.ui.MWCategoriesPage.prototype.createFields = function() {
-    var i;
-    var f = [];
-	this.nodes = [
-	  /************************** Cat 1 starts **********************/
-	  {
-        value: 'Mars Planetary Science',
-        class: 'topCat',
-        firstLabel: 1,
-        secondLabel: 0
-	  },
-	  {
-        value: 'Astronomy',
-        class: 'midCat',
-        firstLabel: 1,
-        secondLabel: 1
-	  },
-	  {
-        value: 'Orbit',
-        class: 'botCat',
-        firstLabel: 1,
-        secondLabel: 1
-	  },
-	  {
-        value: 'Moons - Natural Satellites',
-        class: 'botCat',
-        firstLabel: 1,
-        secondLabel: 1
-	  },
-	  {
-        value: 'Mars-Crossing Asteroids',
-        class: 'botCat',
-        firstLabel: 1,
-        secondLabel: 1
-	  },
-	  {
-        value: 'Time Measures',
-        class: 'botCat',
-        firstLabel: 1,
-        secondLabel: 1
-	  },
-	  {
-        value: 'Aerography',
-        class: 'midCat',
-        firstLabel: 1,
-        secondLabel: 2
-	  },
-	  {
-        value: 'Mars Atlas',
-        class: 'botCat',
-        firstLabel: 1,
-        secondLabel: 2
-	  },
-	  {
-        value: 'Topography',
-        class: 'botCat',
-        firstLabel: 1,
-        secondLabel: 2
-	  },
-	  {
-        value: 'Atmospheric Sciences',
-        class: 'botCat',
-        firstLabel: 1,
-        secondLabel: 2
-	  },
-	  {
-        value: 'Gravimetry',
-        class: 'botCat',
-        firstLabel: 1,
-        secondLabel: 2
-	  },
-	  {
-        value: 'Surface Spectroscopy',
-        class: 'botCat',
-        firstLabel: 1,
-        secondLabel: 2
-	  },
-	  {
-        value: 'Areology',
-        class: 'midCat',
-        firstLabel: 1,
-        secondLabel: 3
-	  },
-	  {
-        value: 'Geologic Processes',
-        class: 'botCat',
-        firstLabel: 1,
-        secondLabel: 3
-	  },
-	  {
-        value: 'Areomorphology',
-        class: 'botCat',
-        firstLabel: 1,
-        secondLabel: 3
-	  },
-	  {
-        value: 'Mineralogy',
-        class: 'botCat',
-        firstLabel: 1,
-        secondLabel: 3
-	  },
-      {
-        value: 'Hydrology',
-        class: 'botCat',
-        firstLabel: 1,
-        secondLabel: 3
-	  },
-      {
-        value: 'Mars Meteorites',
-        class: 'botCat',
-        firstLabel: 1,
-        secondLabel: 3
-	  },
-	  {  
-	  /**************************Cat 2 Start spot=[18] **************/
-        value: 'Mars Spacecraft/Robotic Missions',
-        class: 'topCat',
-        firstLabel: 2,
-        secondLabel: 0
-	  },
-      {
-        value: 'Mission Objectives',
-        class: 'midCat',
-        firstLabel: 2,
-        secondLabel: 1
-	  },
-      {
-        value: 'Search for Life',
-        class: 'botCat',
-        firstLabel: 2,
-        secondLabel: 1
-	  },
-      {
-        value: 'Spaceflight Science',
-        class: 'botCat',
-        firstLabel: 2,
-        secondLabel: 1
-	  },
-      {
-        value: 'Resource Mapping',
-        class: 'botCat',
-        firstLabel: 2,
-        secondLabel: 1
-	  },
-      {
-        value: 'Mission Planning',
-        class: 'midCat',
-        firstLabel: 2,
-        secondLabel: 2
-	  },
-      {
-        value: 'Exploration Concepts',
-        class: 'botCat',
-        firstLabel: 2,
-        secondLabel: 2
-	  },
-      {
-        value: 'Orbital Mechanics',
-        class: 'botCat',
-        firstLabel: 2,
-        secondLabel: 2
-	  },
-      {
-        value: 'Propulsion',
-        class: 'botCat',
-        firstLabel: 2,
-        secondLabel: 2
-	  },
-      {
-        value: 'Power Systems',
-        class: 'botCat',
-        firstLabel: 2,
-        secondLabel: 2
-	  },
-      {
-        value: 'Communication',
-        class: 'botCat',
-        firstLabel: 2,
-        secondLabel: 2
-	  },
-      {
-        value: 'Instruments',
-        class: 'botCat',
-        firstLabel: 2,
-        secondLabel: 2
-	  },
-      {
-        value: 'Emerging Technologies',
-        class: 'botCat',
-        firstLabel: 2,
-        secondLabel: 2
-	  },
-      {
-        value: 'Exploration Missions',
-        class: 'midCat',
-        firstLabel: 2,
-        secondLabel: 3
-	  },
-      {
-        value: 'Orbital Missions',
-        class: 'botCat',
-        firstLabel: 2,
-        secondLabel: 3
-	  },
-      {
-        value: 'Lander Missions',
-        class: 'botCat',
-        firstLabel: 2,
-        secondLabel: 3
-	  },
-      {
-        value: 'Robotic Exploration',
-        class: 'botCat',
-        firstLabel: 2,
-        secondLabel: 3
-	  },
-	  /************************** Cat 3 Starts spot = [35] **************/
-      {
-        value: 'Mars Human Exploration',
-        class: 'topCat',
-        firstLabel: 3,
-        secondLabel: 0 
-	  },
-	  {
-        value: 'Human Mission Architecture',
-        class: 'midCat',
-        firstLabel: 3,
-        secondLabel: 1 
-	  },
-	  {
-        value: 'Funding',
-        class: 'midCat',
-        firstLabel: 3,
-        secondLabel: 2 
-	  },
-	  {
-        value: 'Training',
-        class: 'midCat',
-        firstLabel: 3,
-        secondLabel: 3 
-	  },
-	  {
-        value: 'Human Factors',
-        class: 'midCat',
-        firstLabel: 3,
-        secondLabel: 4 
-	  },
-	  {
-        value: 'Medicine',
-        class: 'midCat',
-        firstLabel: 3,
-        secondLabel: 5 
-	  },
-	  {
-        value: 'In-situ Resource Utilization',
-        class: 'midCat',
-        firstLabel: 3,
-        secondLabel: 6 
-	  },
-	  {
-        value: 'Space Stations',
-        class: 'midCat',
-        firstLabel: 3,
-        secondLabel: 7 
-	  },
-	  {
-        value: 'Moon Stations',
-        class: 'midCat',
-        firstLabel: 3,
-        secondLabel: 8 
-	  },
-	  {
-        value: 'Exploration Transport Systems',
-        class: 'midCat',
-        firstLabel: 3,
-        secondLabel: 9 
-	  },
-	  {
-        value: 'Interplanetary Vehicles',
-        class: 'botCat',
-        firstLabel: 3,
-        secondLabel: 9 
-	  },
-	  {
-        value: 'Descent Vehicles',
-        class: 'botCat',
-        firstLabel: 3,
-        secondLabel: 9 
-	  },
-	  {
-        value: 'Ascent Vehicles',
-        class: 'botCat',
-        firstLabel: 3,
-        secondLabel: 9 
-	  },
-	  {
-        value: 'Surface Vehicular Activities',
-        class: 'midCat',
-        firstLabel: 3,
-        secondLabel: 10 
-	  },
-	  {
-        value: 'EVA Suits',
-        class: 'botCat',
-        firstLabel: 3,
-        secondLabel: 10 
-	  },
-	  {
-        value: 'Analog Stations',
-        class: 'midCat',
-        firstLabel: 3,
-        secondLabel: 11 
-	  },
-	  {
-        value: 'MDRS',
-        class: 'botCat',
-        firstLabel: 3,
-        secondLabel: 11 
-	  },
-	  {
-        value: 'FMARS',
-        class: 'botCat',
-        firstLabel: 3,
-        secondLabel: 11 
-	  },
-	  {
-        value: 'HI-SEAS',
-        class: 'botCat',
-        firstLabel: 3,
-        secondLabel: 11 
-	  },
-	  /************************** Cat 4 start spot=[54] *****************/
-	  {
-        value: 'Mars Human Settlement',
-        class: 'topCat',
-        firstLabel: 4,
-        secondLabel: 0 
-	  },
-	  {
-        value: 'Settlement Transport Systems',
-        class: 'midCat',
-        firstLabel: 4,
-        secondLabel: 1 
-	  },
-	  {
-        value: 'Ready for Mars',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 1 
-	  },
-	  {
-        value: 'SpaceX Transport',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 1 
-	  },
-	  {
-        value: 'Mission Support',
-        class: 'midCat',
-        firstLabel: 4,
-        secondLabel: 2 
-	  },
-	  {
-        value: 'Life Support Systems',
-        class: 'midCat',
-        firstLabel: 4,
-        secondLabel: 3 
-	  },
-	  {
-        value: 'Air',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 3 
-	  },
-	  {
-        value: 'Water',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 3 
-	  },
-	  {
-        value: 'HVAC',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 3 
-	  },
-	  {
-        value: 'Settlement Plans',
-        class: 'midCat',
-        firstLabel: 4,
-        secondLabel: 4 
-	  },
-	  {
-        value: 'Housing and Infrastructure Concepts',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 4 
-	  },
-	  {
-        value: 'Construction, Assembly, Maintenance',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 4 
-	  },
-	  {
-        value: 'Surface Transportation',
-        class: 'midCat',
-        firstLabel: 4,
-        secondLabel: 5 
-	  },
-	  {
-        value: 'Surface Vehicles',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 5 
-	  },
-	  {
-        value: 'Surface Transportation Networks',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 5 
-	  },
-	  {
-        value: 'Health and Safety',
-        class: 'midCat',
-        firstLabel: 4,
-        secondLabel: 6 
-	  },
-	  {
-        value: 'Radiation Protection',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 6 
-	  },
-	  {
-        value: 'Diet and Nutrition',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 6 
-	  },
-	  {
-        value: 'Gravity and Fitness',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 6 
-	  },
-	  {
-        value: 'Psychology',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 6 
-	  },
-	  {
-        value: 'Communications',
-        class: 'midCat',
-        firstLabel: 4,
-        secondLabel: 7 
-	  },
-	  {
-        value: 'Energy',
-        class: 'midCat',
-        firstLabel: 4,
-        secondLabel: 8 
-	  },
-	  {
-        value: 'Sources',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 8 
-	  },
-	  {
-        value: 'Distribution',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 8 
-	  },
-	  {
-        value: 'Storage',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 8 
-	  },
-	  {
-        value: 'Fuels',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 8 
-	  },
-	  {
-        value: 'Agriculture',
-        class: 'midCat',
-        firstLabel: 4,
-        secondLabel: 9 
-	  },
-	  {
-        value: 'Growing Methods',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 9 
-	  },
-	  {
-        value: 'Food Crops',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 9 
-	  },
-	  {
-        value: 'Non-Food Crops',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 9 
-	  },
-	  {
-        value: 'Biospherics',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 9 
-	  },
-	  {
-        value: 'Genetic Engineering',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 9 
-	  },
-	  {
-        value: 'Livestock and Aquaculture',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 9 
-	  },
-	  {
-        value: 'Resources and Manufacture',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 9 
-	  },
-	  {
-        value: 'Materials',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 9 
-	  },
-	  {
-        value: 'Prospecting',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 9 
-	  },
-	  {
-        value: 'Mining and Refining',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 9 
-	  },
-	  {
-        value: 'Synthesis',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 9 
-	  },
-	  {
-        value: 'Manufacture',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 9 
-	  },
-	  {
-        value: 'Fabrication and Repair',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 9 
-	  },
-	  {
-        value: 'Waste Management and Recycling',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 9 
-	  },
-	  {
-        value: 'Society',
-        class: 'midCat',
-        firstLabel: 4,
-        secondLabel: 10 
-	  },
-	  {
-        value: 'Law',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 10 
-	  },
-	  {
-        value: 'Philosophy and Ethics',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 10 
-	  },
-	  {
-        value: 'Commerce and Economics',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 10 
-	  },
-	  {
-        value: 'Government',
-        class: 'botCat',
-        firstLabel: 4,
-        secondLabel: 10 
-	  },
-	  {
-        value: 'Terraforming',
-        class: 'midCat',
-        firstLabel: 4,
-        secondLabel: 11 
-	  },
-	  /************************** cat 5 starts spot =[101] *************/
-	  {
-        value: 'Mars Outreach',
-        class: 'topCat',
-        firstLabel: 5,
-        secondLabel: 0 
-	  },
-	  {
-        value: 'Outreach Concepts',
-        class: 'midCat',
-        firstLabel: 5,
-        secondLabel: 1 
-	  },
-	  {
-        value: 'Political Action',
-        class: 'botCat',
-        firstLabel: 5,
-        secondLabel: 1 
-	  },
-	  {
-        value: 'Events',
-        class: 'botCat',
-        firstLabel: 5,
-        secondLabel: 1 
-	  },
-	  {
-        value: 'Competitions',
-        class: 'botCat',
-        firstLabel: 5,
-        secondLabel: 1 
-	  },
-	  {
-        value: 'People and Organizations',
-        class: 'midCat',
-        firstLabel: 5,
-        secondLabel: 2 
-	  },
-	  {
-        value: 'Mars Society',
-        class: 'botCat',
-        firstLabel: 5,
-        secondLabel: 2 
-	  },
-	  {
-        value: 'Explore Mars',
-        class: 'botCat',
-        firstLabel: 5,
-        secondLabel: 2 
-	  },
-	  {
-        value: 'Mars One',
-        class: 'botCat',
-        firstLabel: 5,
-        secondLabel: 2 
-	  },
-	  {
-        value: 'SpaceX',
-        class: 'botCat',
-        firstLabel: 5,
-        secondLabel: 2 
-	  },
-	  {
-        value: 'Mars Foundation',
-        class: 'botCat',
-        firstLabel: 5,
-        secondLabel: 2 
-	  },
-	  {
-        value: 'Education',
-        class: 'midCat',
-        firstLabel: 5,
-        secondLabel: 3 
-	  },
-	  {
-        value: 'Online Courses',
-        class: 'botCat',
-        firstLabel: 5,
-        secondLabel: 3 
-	  },
-	  {
-        value: 'University Degree Programs',
-        class: 'botCat',
-        firstLabel: 5,
-        secondLabel: 3 
-	  },
-	  {
-        value: 'Information Media Sources',
-        class: 'midCat',
-        firstLabel: 5,
-        secondLabel: 4 
-	  },
-	  {
-        value: 'Marspedia',
-        class: 'botCat',
-        firstLabel: 5,
-        secondLabel: 4 
-	  },
-	  {
-        value: 'MarsPapers',
-        class: 'botCat',
-        firstLabel: 5,
-        secondLabel: 4 
-	  },
-	  {
-        value: 'Mars Society Videos',
-        class: 'botCat',
-        firstLabel: 5,
-        secondLabel: 4 
-	  },
-	  {
-        value: 'Wikipedia',
-        class: 'botCat',
-        firstLabel: 5,
-        secondLabel: 4 
-	  },
-	  /************************ cat 6 starts spot=[120] ****************/
-	  {
-        value: 'Mars Arts and Literature',
-        class: 'topCat',
-        firstLabel: 6,
-        secondLabel: 0 
-	  },
-	  {
-        value: 'Books',
-        class: 'midCat',
-        firstLabel: 6,
-        secondLabel: 1 
-	  },
-	  {
-        value: 'Science Fiction Literature',
-        class: 'botCat',
-        firstLabel: 6,
-        secondLabel: 1 
-	  },
-	  {
-        value: 'Non-fiction Literature',
-        class: 'botCat',
-        firstLabel: 6,
-        secondLabel: 1 
-	  },
-	  {
-        value: 'Essays',
-        class: 'midCat',
-        firstLabel: 6,
-        secondLabel: 2 
-	  },
-	  {
-        value: 'History',
-        class: 'midCat',
-        firstLabel: 6,
-        secondLabel: 3 
-	  },
-	  {
-        value: 'Plays',
-        class: 'midCat',
-        firstLabel: 6,
-        secondLabel: 4 
-	  },
-	  {
-        value: 'Movies',
-        class: 'midCat',
-        firstLabel: 6,
-        secondLabel: 5 
-	  },
-	  {
-        value: 'Documentaries',
-        class: 'botCat',
-        firstLabel: 6,
-        secondLabel: 5 
-	  },
-	  {
-        value: 'TV Series',
-        class: 'botCat',
-        firstLabel: 6,
-        secondLabel: 5 
-	  },
-	  {
-        value: 'Science Fiction Movies',
-        class: 'botCat',
-        firstLabel: 6,
-        secondLabel: 5 
-	  },
-	  {
-        value: 'Music',
-        class: 'midCat',
-        firstLabel: 6,
-        secondLabel: 6 
-	  },
-	  {
-        value: 'Photography',
-        class: 'midCat',
-        firstLabel: 6,
-        secondLabel: 7 
-	  },
-	  {
-        value: 'Art',
-        class: 'midCat',
-        firstLabel: 6,
-        secondLabel: 8 
-	  },
-	  {
-        value: 'Games',
-        class: 'botCat',
-        firstLabel: 6,
-        secondLabel: 8 
-	  },
-	  {
-        value: 'Board Games',
-        class: 'botCat',
-        firstLabel: 6,
-        secondLabel: 8 
-	  },
-	  {
-        value: 'Computer Games',
-        class: 'botCat',
-        firstLabel: 6,
-        secondLabel: 8 
-	  }
-	];
-
-    // add common attributes to all category nodes.
-	for(i = 0; i < this.nodes.length; i++) {
-		this.nodes[i].name = 'Category:' + this.nodes[i].value;
-  		this.nodes[i].box = new OO.ui.CheckboxInputWidget({ value: this.nodes[i].value});
-		this.nodes[i].metaItem = {};
-	}
-
-    for(i=0; i<this.nodes.length; i++) {
-    	f.push(new OO.ui.FieldLayout( this.nodes[i].box, { label: this.nodes[i].value, align: 'inline', classes: [this.nodes[i].class] } ));
-    	this.nodes[i].box.connect(this, {change: "onClick"});
-    }
-
-    return f;
+	this.metaList.insertMeta.apply( this.metaList, args );
 };
-
-
-/*****************************************************************************/
-/******************************* TMS Code End ********************************/
-/*****************************************************************************/
-
+// @TMS - End
 
 /**
  * @inheritdoc
@@ -1080,8 +833,8 @@ ve.ui.MWCategoriesPage.prototype.onDefaultSortChange = function ( value ) {
  *  or undefined to go at the end
  */
 ve.ui.MWCategoriesPage.prototype.onNewCategory = function ( item, beforeMetaItem ) {
-	console.log("onNewCategory=", item);
 	var args = [ this.getCategoryItemForInsertion( item ) ];
+
 	// Insert new metaList item
 	if ( beforeMetaItem ) {
 		args.push( beforeMetaItem.getOffset() );
@@ -1089,6 +842,7 @@ ve.ui.MWCategoriesPage.prototype.onNewCategory = function ( item, beforeMetaItem
 			args.push( beforeMetaItem.getIndex() );
 		}
 	}
+
 	this.metaList.insertMeta.apply( this.metaList, args );
 };
 
@@ -1109,6 +863,7 @@ ve.ui.MWCategoriesPage.prototype.onUpdateSortKey = function ( item ) {
  */
 ve.ui.MWCategoriesPage.prototype.onMetaListInsert = function ( metaItem ) {
 	var index;
+
 	// Responsible for adding UI components
 	if ( metaItem.element.type === 'mwCategory' ) {
 		index = this.metaList.getItemsInGroup( 'mwCategory' ).indexOf( metaItem );
@@ -1126,7 +881,7 @@ ve.ui.MWCategoriesPage.prototype.onMetaListInsert = function ( metaItem ) {
  */
 ve.ui.MWCategoriesPage.prototype.onMetaListRemove = function ( metaItem ) {
 	var item;
-	console.log("onMetaListRemove ", metaItem);
+
 	if ( metaItem.element.type === 'mwCategory' ) {
 		item = this.categoryWidget.categories[ this.getCategoryItemFromMetaListItem( metaItem ).value ];
 		this.categoryWidget.removeItems( [ item ] );
@@ -1168,7 +923,6 @@ ve.ui.MWCategoriesPage.prototype.getCategoryItems = function () {
 ve.ui.MWCategoriesPage.prototype.getCategoryItemFromMetaListItem = function ( metaItem ) {
 	var title = mw.Title.newFromText( metaItem.element.attributes.category ),
 		value = title ? title.getMainText() : '';
-
 	return {
 		name: metaItem.element.attributes.category,
 		value: value,
@@ -1272,389 +1026,4 @@ ve.ui.MWCategoriesPage.prototype.teardown = function ( data ) {
 	this.categoryWidget.clearItems();
 	this.metaList.disconnect( this );
 	this.metaList = null;
-
 };
-
-/**********************
-     KEEPING OLD CODE IN CASE I NEED IT AGAIN
-                           *************************/
-
-
-
-/*
-'Mars Planetary Science'
-  'Astronomy'
-    'Orbit'
-    'Moons - Natural Satellites'
-    'Mars-Crossing Asteroids'
-    'Time Measures'
-  'Aerography'
-    'Mars Atlas'
-    'Topography'
-    'Atmospheric Sciences'
-    'Gravimetry'
-    'Surface Spectroscopy'
-  'Areology'
-    'Geologic Processes'
-    'Areomorphology'
-    'Mineralogy'
-    'Hydrology'
-    'Mars Meteorites'
-
-'Mars Spacecraft/Robotic Missions'
-  'Mission Objectives'
-    'Search for Life'
-	'Spaceflight Science'
-	'Resource Mapping'
-  'Mission Planning'
-    'Exploration Concepts'
-	'Orbital Mechanics'
-	'Propulsion'
-	'Power Systems'
-	'Communication'
-	'Instruments'
-	'Emerging Technologies'
-  'Exploration Missions'
-    'Orbital Missions'
-    'Lander Missions'
-    'Robotic Exploration'
-
-'Mars Human Exploration'
-  'Human Mission Architecture'
-  'Funding'
-  'Training'
-  'Human Factors'
-  'Medicine'
-  'In-situ Resource Utilization'
-  'Space Stations'
-  'Moon Stations'
-  'Exploration Transport Systems'
-    'Interplanetary Vehicles'
-    'Descent Vehicles'
-    'Ascent Vehicles'
-  'Surface Vehicular Activities'
-    'EVA Suits'
-  'Analog Stations'
-    'MDRS'
-    'FMARS'
-    'HI-SEAS'
-
-'Mars Human Settlement'
-  'Settlement Transport Systems'
-    'Ready for Mars'
-    'SpaceX Transport'
-  'Mission Support'
-  'Life Support Systems'
-    'Air'
-    'Water'
-    'HVAC'
-  'Settlement Plans'
-    'Housing and Infrastructure Concepts'
-    'Construction, Assembly, Maintenance'
-  'Surface Transportation'
-    'Surface Vehicles'
-    'Surface Transportation Networks'
-  'Health and Safety'
-    'Radiation Protection'
-    'Diet and Nutrition'
-    'Gravity and Fitness'
-    'Psychology'
-  'Communications'
-  'Energy'
-    'Sources'
-    'Distribution'
-    'Storage'
-    'Fuels'
-  'Agriculture'
-    'Growing Methods'
-    'Food Crops'
-    'Non-Food Crops'
-    'Biospherics'
-    'Genetic Engineering'
-    'Livestock and Aquaculture'
-  'Resources and Manufacture'
-    'Materials'
-    'Prospecting'
-    'Mining and Refining'
-    'Synthesis'
-    'Manufacture'
-    'Fabrication and Repair'
-    'Waste Management and Recycling'
-  'Society'
-    'Law'
-    'Philosophy and Ethics'
-    'Commerce and Economics'
-    'Government'
-  'Terraforming'
-
-'Mars Outreach'
-  'Outreach Concepts'
-    'Political Action'
-    'Events'
-    'Competitions'
-  'People and Organizations'
-    'Mars Society'
-    'Explore Mars'
-    'Mars One'
-    'SpaceX'
-    'Mars Foundation'
-  'Education'
-    'Online Courses'
-    'University Degree Programs'
-  'Information Media Sources'
-    'Marspedia'
-    'MarsPapers'
-    'Mars Society Videos'
-    'Wikipedia'
-
-'Mars Arts and Literature'
-  'Books'
-    'Science Fiction Literature'
-    'Non-fiction Literature'
-  'Essays'
-  'History'
-  'Plays'
-  'Movies'
-    'Documentaries'
-    'TV Series'
-    'Science Fiction Movies'
-  'Music'
-  'Photography'
-  'Art'
-  'Games'
-    'Board Games'
-    'Computer Games'
-
-
-
-
-
-
-
-
-// in main 
-
-  // caching a checkbox location for filering usage.
-    this.cachedFirstLabel = {
-    	firstLabel: -1,
-		secondLabel: -1
-	};
-
-
-// connect each 1st or 2nd level category with the filtering function.
-    // top level
-    this.nodes[0].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[18].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[35].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[54].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[101].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[120].box.connect(this, {change: "onFirstGroupClick"});
-
-    // second level 1.x
-    this.nodes[1].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[6].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[12].box.connect(this, {change: "onFirstGroupClick"});
-
-    // second level 2.x
-    this.nodes[19].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[23].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[31].box.connect(this, {change: "onFirstGroupClick"});
-
-    // second level 3.x
-    this.nodes[36].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[37].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[38].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[39].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[40].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[41].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[42].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[43].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[44].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[48].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[50].box.connect(this, {change: "onFirstGroupClick"});
-
-    // second level 4.x
-    this.nodes[55].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[58].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[59].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[63].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[66].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[69].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[74].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[75].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[80].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[95].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[100].box.connect(this, {change: "onFirstGroupClick"});
-
-    // second level 5.x
-    this.nodes[102].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[106].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[112].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[115].box.connect(this, {change: "onFirstGroupClick"});
-
-    // second level 6.x
-    this.nodes[121].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[124].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[125].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[126].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[127].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[131].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[132].box.connect(this, {change: "onFirstGroupClick"});
-    this.nodes[133].box.connect(this, {change: "onFirstGroupClick"});
-
-
-ve.ui.MWCategoriesPage.prototype.getSelectedLabel = function () {
-	var labelNumber = {
-		firstLabel: '',
-		secondLabel: ''
-	};
-
-    // first we check if any of the outer labels are selected.  
-    // if so, we then check if one of the child labels are selected.
-    if(this.nodes[0].box.isSelected()) {
-    	labelNumber.firstLabel = this.nodes[0].firstLabel;
-        labelNumber.secondLabel = this.nodes[0].secondLabel;  
-    	for(var i=1; i<18; i++) {
-			if(this.nodes[i].box.isSelected()) {
-  				labelNumber.firstLabel = this.nodes[i].firstLabel;
-    		    labelNumber.secondLabel = this.nodes[i].secondLabel;
-			}
-    	}
-    } else if(this.nodes[18].box.isSelected()) {
-		labelNumber.firstLabel = this.nodes[18].firstLabel;
-        labelNumber.secondLabel = this.nodes[18].secondLabel;
-        for(var i=19; i<35; i++) {
-			if(this.nodes[i].box.isSelected()) {
-  				labelNumber.firstLabel = this.nodes[i].firstLabel;
-    		    labelNumber.secondLabel = this.nodes[i].secondLabel;
-			}
-    	}
-    } else if(this.nodes[35].box.isSelected()) {
-		labelNumber.firstLabel = this.nodes[35].firstLabel;
-        labelNumber.secondLabel = this.nodes[35].secondLabel;
-        for(var i=36; i<54; i++) {
-			if(this.nodes[i].box.isSelected()) {
-  				labelNumber.firstLabel = this.nodes[i].firstLabel;
-    		    labelNumber.secondLabel = this.nodes[i].secondLabel;
-			}
-    	}
-    } else if(this.nodes[54].box.isSelected()) {
-		labelNumber.firstLabel = this.nodes[54].firstLabel;
-        labelNumber.secondLabel = this.nodes[54].secondLabel;
-        for(var i=55; i<101; i++) {
-			if(this.nodes[i].box.isSelected()) {
-  				labelNumber.firstLabel = this.nodes[i].firstLabel;
-    		    labelNumber.secondLabel = this.nodes[i].secondLabel;
-			}
-    	}
-    } else if(this.nodes[101].box.isSelected()) {
-		labelNumber.firstLabel = this.nodes[101].firstLabel;
-        labelNumber.secondLabel = this.nodes[101].secondLabel;
-        for(var i=102; i<120; i++) {
-			if(this.nodes[i].box.isSelected()) {
-  				labelNumber.firstLabel = this.nodes[i].firstLabel;
-    		    labelNumber.secondLabel = this.nodes[i].secondLabel;
-			}
-    	}
-    } else if(this.nodes[120].box.isSelected()) {
-		labelNumber.firstLabel = this.nodes[120].firstLabel;
-        labelNumber.secondLabel = this.nodes[120].secondLabel;
-        for(var i=121; i<137; i++) {
-			if(this.nodes[i].box.isSelected()) {
-  				labelNumber.firstLabel = this.nodes[i].firstLabel;
-    		    labelNumber.secondLabel = this.nodes[i].secondLabel;
-			}
-    	}
-    }
-
-    this.cachedFirstLabel = labelNumber;
-
-	return labelNumber;
-}
-
-ve.ui.MWCategoriesPage.prototype.getUnSelectedLabel = function() {
-	var labelNumber = this.cachedFirstLabel;
-
-	this.cachedFirstLabel = {
-  		firstLabel: -1,
-		secondLabel: -1
-	};
-
-    // if the unselected label is not at 0 level, then it is a 1st level.
-    // so cache the label that is it's parent.
-	if(labelNumber.secondLabel !== 0 ) {
-		this.cachedFirstLabel = {
-			firstLabel: labelNumber.firstLabel,
-			secondLabel: 0
-		}
-	}
-
-	return labelNumber;
-}
-
-ve.ui.MWCategoriesPage.prototype.onFirstGroupClick = function (value) {
-    // if we have clicked a checkbox
-	if(value) {
-		var selected = this.getSelectedLabel();
-		console.log("selected=", selected);
-
-		for(var i=0; i<this.nodes.length; i++) {
-			// remove all categories below the selected one.
-			if(this.nodes[i].firstLabel < selected.firstLabel) {
-	        	this.nodes[i].box.setDisabled(true);
-	        	this.fields[i].toggle(false);
-	        }
-
-            // remove all categories above the selected row.
-	        if(this.nodes[i].firstLabel > selected.firstLabel) {
-	        	this.nodes[i].box.setDisabled(true);
-	        	this.fields[i].toggle(false);
-	        }
-
-            // remove all second layer categories below the selected one.
-	        if(this.nodes[i].firstLabel === selected.firstLabel &&
-	        	selected.secondLabel !== 0 &&
-	        	this.nodes[i].secondLabel !== 0 &&
-	        	this.nodes[i].secondLabel < selected.secondLabel) {
-	        	this.nodes[i].box.setDisabled(true);
-	            this.fields[i].toggle(false);
-	        }
-
-            // remove all second layer categories above the selected one.
-	        if(this.nodes[i].firstLabel === selected.firstLabel &&
-	        	selected.secondLabel !== 0 &&
-	        	this.nodes[i].secondLabel !== 0 &&
-	        	this.nodes[i].secondLabel > selected.secondLabel) {
-	        	this.nodes[i].box.setDisabled(true);
-	        	this.fields[i].toggle(false);
-	        }
-		}
-	} else {
-		// if "value" is false, then we have unselected a check box.  
-		// need to find out which one.
-		var unselected = this.getUnSelectedLabel();
-		console.log("unselected=", unselected);
-
-		if(unselected.secondLabel === 0) {
-			// if a first level category is selected, enable all checkboxes.
-			for(var i=0; i<this.nodes.length; i++) {
-    			this.nodes[i].box.setDisabled(false);
-    			this.fields[i].toggle(true);
-        	}
-		} else {
-			for(var i=0; i<this.nodes.length; i++) {
-                if(this.nodes[i].firstLabel === unselected.firstLabel) {
-                	this.nodes[i].box.setDisabled(false);
-    				this.fields[i].toggle(true);
-                }
-			}
-		}
-		
-	}
-}
-
-
-
-
-
-*/
