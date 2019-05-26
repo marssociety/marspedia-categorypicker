@@ -154,6 +154,11 @@ ve.ui.MWCategoriesPage = function VeUiMWCategoriesPage( name, config ) {
 	            	label: 'Lander Missions',
 	            	classes: ['category-three']
 	            }),
+		    new OO.ui.MenuOptionWidget( {
+			data: 'Orbital Missions',
+			label: 'Orbital Missions',
+			classes: ['category-three']
+	            }),
 	            new OO.ui.MenuOptionWidget( {
 	            	data: 'Robotic Exploration',
 	            	label: 'Robotic Exploration',
